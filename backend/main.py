@@ -14,6 +14,7 @@ from models import (
 )
 from database import get_db, create_tables
 import crud
+from routes_v2 import router as v2_router
 
 app = FastAPI(
     title="Tag Management API",
@@ -29,6 +30,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+# Register v2 router (raw SQL, no ORM)
+app.include_router(v2_router)
 
 
 @app.on_event("startup")
